@@ -1,7 +1,7 @@
 # Description
 PoC with Vault Agent Service
 
-# Start Vault as Docker service in development mode
+## Start Vault as Docker service in development mode
 
 In this mode Vault only save configurations and secrets in memor. Only use this mode for some checks:
 
@@ -15,7 +15,7 @@ Export the uri where vault is listening
 export VAULT_ADDR='http://0.0.0.0:8200'
 ```
 
-# Start Vault as Docker service in production mode
+## Start Vault as Docker service in production mode
 
 ```
 docker run --name vault -d --cap-add=IPC_LOCK -e 'VAULT_LOCAL_CONFIG={"storage": {"file": {"path": "/vault/file"}}, "listener": [{"tcp": { "address": "0.0.0.0:8200", "tls_disable": true}}], "default_lease_ttl": "168h", "max_lease_ttl": "720h", "ui": true}' -p 8200:8200 vault server
@@ -44,7 +44,7 @@ We must introduce the Key 1 created previously to finish the configuration
 
 ![vault-production-config_05](captures/vault_production_config_ste05.png)
 
-# Check Vault service
+## Check Vault service
 
 Check vault status
 
@@ -72,7 +72,7 @@ Login in vault status using the previous VAULT_DEV_ROOT_TOKEN_ID value
 vault login root
 ```
 
-# Access to Vault UI
+## Access to Vault UI
 
 ```
 http://localhost:8200/
@@ -82,7 +82,7 @@ Access using toke authentication method and the token VAULT_DEV_ROOT_TOKEN_ID
 
 ![vault-ui](captures/vault_ui.png)
 
-## create new access methods to vault
+## Manage access methods
 
 By default vault only activate the token access. We are activate the username/password access and create a new account for this new type
 
@@ -96,7 +96,7 @@ Select Username& Passrod option and click Next
 
 The new access method is showed in this list
 
-## Manage access methods and accounts
+## Manage accounts
 
 select the username/password access method and create a new account cliking in Create user
 
