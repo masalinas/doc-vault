@@ -84,7 +84,7 @@ Access using toke authentication method and the token VAULT_DEV_ROOT_TOKEN_ID
 
 ![vault-ui](captures/vault_ui.png)
 
-## Manage methods
+## Manage access methods in Vault
 
 By default vault only activate the token access. We are activate the username/password access and create a new account for this new type
 
@@ -98,7 +98,7 @@ Select Username& Passrod option and click Next
 
 The new access method is showed in this list
 
-## Manage access methods and accounts
+## Manage accounts inside access methods in Vault
 
 select the username/password access method and create a new account cliking in Create user
 
