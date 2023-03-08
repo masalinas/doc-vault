@@ -32,7 +32,7 @@ docker run --name vault -d --cap-add=IPC_LOCK -e 'VAULT_LOCAL_CONFIG={"storage":
 
 ![vault-production-config_02](captures/vault_production_config_ste02.png)
 
-**STEP03 : Now continue with the Unseal configuration
+**STEP03** : Now continue with the Unseal configuration
 
 We must introduce the Key 1 created previously to finish the configuration
 
