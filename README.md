@@ -1,7 +1,7 @@
 # Description
 PoC with Vault Agent Service
 
-# Start Vault as Docker service in development mode
+## Start Vault as Docker service in development mode
 
 In this mode Vault only save configurations and secrets in memor. Only use this mode for some checks:
 
@@ -15,7 +15,7 @@ Export the uri where vault is listening
 export VAULT_ADDR='http://0.0.0.0:8200'
 ```
 
-# Start Vault as Docker service in production mode
+## Start Vault as Docker service in production mode
 
 This runs a Vault server with TLS disabled, the file storage backend at path /vault/file and a default secret lease duration of one week and a maximum of 30 days. Disabling TLS and using the file storage backend are not recommended for production use.
 
@@ -34,7 +34,7 @@ docker run --name vault -d --cap-add=IPC_LOCK -e 'VAULT_LOCAL_CONFIG={"storage":
 
 ![vault-production-config_02](captures/vault_production_config_ste02.png)
 
-**STEP03: Now continue with the Unseal configuration
+**STEP03**: Now continue with the Unseal configuration
 
 We must introduce the Key 1 created previously to finish the configuration
 
@@ -46,7 +46,7 @@ We must introduce the Key 1 created previously to finish the configuration
 
 ![vault-production-config_05](captures/vault_production_config_ste05.png)
 
-# Check Vault service
+## Check Vault service
 
 Check vault status
 
@@ -74,7 +74,7 @@ Login in vault status using the previous VAULT_DEV_ROOT_TOKEN_ID value
 vault login root
 ```
 
-# Access to Vault UI
+## Access to Vault UI
 
 ```
 http://localhost:8200/
@@ -84,7 +84,7 @@ Access using toke authentication method and the token VAULT_DEV_ROOT_TOKEN_ID
 
 ![vault-ui](captures/vault_ui.png)
 
-## create new access methods to vault
+## Manage methods
 
 By default vault only activate the token access. We are activate the username/password access and create a new account for this new type
 
