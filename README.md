@@ -21,24 +21,24 @@ export VAULT_ADDR='http://0.0.0.0:8200'
 docker run --name vault -d --cap-add=IPC_LOCK -e 'VAULT_LOCAL_CONFIG={"storage": {"file": {"path": "/vault/file"}}, "listener": [{"tcp": { "address": "0.0.0.0:8200", "tls_disable": true}}], "default_lease_ttl": "168h", "max_lease_ttl": "720h", "ui": true}' -p 8200:8200 vault server
 ```
 
-**STEP01**: Configure root keys in emeerngy case. Set 1 and 1 in both attributes
+**STEP01** : Configure root keys in emeerngy case. Set 1 and 1 in both attributes
 
 ![vault-production-config_01](captures/vault_production_config_ste01.png)
 
-**STEP02**: The system create for us two keys. This keys will be used to login in UI later. We can download
+**STEP02** : The system create for us two keys. This keys will be used to login in UI later. We can download
 
 - intial root token: hvs.7oo9iGaYJyjBk7EADaBE0Xha
 - Key 1: 58f289a6fef1d68db93fd143d082f1f9f821b8ff0c2d2752325c55ac538f3b44
 
 ![vault-production-config_02](captures/vault_production_config_ste02.png)
 
-**STEP03: Now continue with the Unseal configuration
+**STEP03 : Now continue with the Unseal configuration
 
 We must introduce the Key 1 created previously to finish the configuration
 
 ![vault-production-config_03](captures/vault_production_config_ste03.png)
 
-**STEP04**: We can login using the root key created for us
+**STEP04** : We can login using the root key created for us
 
 ![vault-production-config_04](captures/vault_production_config_ste04.png)
 
