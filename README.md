@@ -192,6 +192,22 @@ vault write -format=json -f auth/approle/role/agent/secret-id \
 vault agent -log-level debug -config=./vault-agent/agent-vault-agent.hcl
 ```
 
+**STEP08**: Watch results
+
+After Vault Agent starts, this service got the secrets configured in the template and create a simple htlm showing these secrets recovered:
+
+![agent_results](captures/agent_result.png)
+
+**STEP09**: Rotate some secrets and show the results
+
+Now we are going to change (rotate) from secret and the agent will get it again and refresh our html. To rotate a secret we will create a new version of ours secrets and change some one for example the username
+
+![vault_rotate_secret](captures/vault_rotate_secret.png)
+
+When save this new version the agent will detect this change and download the secret again and execute the template creating a new html with this change:
+
+![vault_agent_rotate_results](captures/vault_agent_rotate_results.png)
+
 ## Some links
 
 [Vault Docker Reference](https://hub.docker.com/_/vault)
