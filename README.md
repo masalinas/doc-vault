@@ -3,16 +3,17 @@ PoC with Vault Agent Service
 
 ## Start Vault as Docker service in development mode
 
-In this mode Vault only save configurations and secrets in memor. Only use this mode for some checks:
+In this mode Vault only save configurations and secrets in memory. Only use this mode for some checks:
 
 ```
-docker run --name vault -d --cap-add=IPC_LOCK -e VAULT_DEV_ROOT_TOKEN_ID=root -e 'VAULT_LOCAL_CONFIG={"storage": {"file": {"path": "/vault/file"}}, "listener": [{"tcp": { "address": "0.0.0.0:8200", "tls_disable": true}}], "default_lease_ttl": "168h", "max_lease_ttl": "720h", "ui": true}' -p 8200:8200 vault server
+docker run --name vault -d --cap-add=IPC_LOCK -e VAULT_DEV_ROOT_TOKEN_ID=root -p 8200:8200 vault
 ```
 
-Export the uri where vault is listening
+export url and root token environments:
 
 ```
 export VAULT_ADDR='http://0.0.0.0:8200'
+export VAULT_TOKEN=root
 ```
 
 ## Start Vault as Docker service in production mode
@@ -21,6 +22,13 @@ This runs a Vault server with TLS disabled, the file storage backend at path /va
 
 ```
 docker run --name vault -d --cap-add=IPC_LOCK -e 'VAULT_LOCAL_CONFIG={"storage": {"file": {"path": "/vault/file"}}, "listener": [{"tcp": { "address": "0.0.0.0:8200", "tls_disable": true}}], "default_lease_ttl": "168h", "max_lease_ttl": "720h", "ui": true}' -p 8200:8200 vault server
+```
+
+export url and root token environments generated after configuration (json tokens file downloaded)
+
+```
+export VAULT_ADDR='http://0.0.0.0:8200'
+export VAULT_TOKEN=hvs.fwEWVE5LwluMEe9lmqvnqhBi
 ```
 
 **STEP01** : Configure root keys in emeerngy case. Set 1 and 1 in both attributes
@@ -115,3 +123,8 @@ vault login -method=userpass username=masalinas password=password
 ```
 
 ## Manage secrets engines
+
+
+## Some links
+
+[Vault Docker Reference](https://hub.docker.com/_/vault)
