@@ -31,28 +31,17 @@ export VAULT_ADDR='http://0.0.0.0:8200'
 export VAULT_TOKEN=hvs.fwEWVE5LwluMEe9lmqvnqhBi
 ```
 
-**STEP01** : Configure root keys in emeerngy case. Set 1 and 1 in both attributes
+## Vault login
 
-![vault-production-config_01](captures/vault_production_config_ste01.png)
+We can login in vault if we not export the VAULT_TOKEN environment variable:
 
-**STEP02** : The system create for us two keys. This keys will be used to login in UI later. We can download
+```
+export VAULT_ADDR='http://0.0.0.0:8200'
 
-- intial root token: hvs.7oo9iGaYJyjBk7EADaBE0Xha
-- Key 1: 58f289a6fef1d68db93fd143d082f1f9f821b8ff0c2d2752325c55ac538f3b44
+vault login <ROOT_TOKEN>
+```
 
-![vault-production-config_02](captures/vault_production_config_ste02.png)
-
-**STEP03**: Now continue with the Unseal configuration
-
-We must introduce the Key 1 created previously to finish the configuration
-
-![vault-production-config_03](captures/vault_production_config_ste03.png)
-
-**STEP04**: We can login using the root key created for us
-
-![vault-production-config_04](captures/vault_production_config_ste04.png)
-
-![vault-production-config_05](captures/vault_production_config_ste05.png)
+the root token could be generated in production mode or fix in development mode as previous
 
 ## Check Vault service
 
@@ -76,19 +65,39 @@ Cluster ID      da5425e5-f11a-e97e-2ebb-2de0169ba90f
 HA Enabled      false
 ```
 
-Login in vault status using the previous VAULT_DEV_ROOT_TOKEN_ID value
-
-```
-vault login root
-```
-
 ## Access to Vault UI
 
+Go to vault root http uri:
 ```
 http://localhost:8200/
 ```
 
-Access using toke authentication method and the token VAULT_DEV_ROOT_TOKEN_ID
+Now configure vault ui production mode the first time in 4 steps
+
+**STEP01** : Configure root keys in emergency case. Set 1 and 1 in both attributes
+
+![vault-production-config_01](captures/vault_production_config_ste01.png)
+
+**STEP02** : The system create for us two keys. This keys will be used to login in UI later. We can download
+
+- intial root token: hvs.7oo9iGaYJyjBk7EADaBE0Xha
+- Key 1: 58f289a6fef1d68db93fd143d082f1f9f821b8ff0c2d2752325c55ac538f3b44
+
+![vault-production-config_02](captures/vault_production_config_ste02.png)
+
+**STEP03**: Now continue with the Unseal configuration
+
+We must introduce the Key 1 created previously to finish the configuration
+
+![vault-production-config_03](captures/vault_production_config_ste03.png)
+
+**STEP04**: We can login using the root key created for us
+
+![vault-production-config_04](captures/vault_production_config_ste04.png)
+
+![vault-production-config_05](captures/vault_production_config_ste05.png)
+
+The next times we can access using toke authentication method and the token VAULT_TOKEN or VAULT_DEV_ROOT_TOKEN_ID defined:
 
 ![vault-ui](captures/vault_ui.png)
 
@@ -122,9 +131,69 @@ Login with the new accound
 vault login -method=userpass username=masalinas password=password
 ```
 
-## Manage secrets engines
+## Manage vault agant
 
+**STEP01**: Write a Agant Policy
+vault policy write agant agent.hcl
+
+where agent.hcl define the policied to have toal access to any path inside kv agant path
+
+```
+path "kv/data/agent/*"
+{
+  capabilities = ["create", "read", "update", "delete", "list"]
+}
+```
+
+**STEP02**: Enable the kv Secrets engine and store a secret
+
+```
+vault secrets enable -version=2 kv
+```
+
+**STEP03**: store a sample secret
+
+```
+vault kv put kv/agent/static app=agent username=agent password=sup4s3cr3t
+```
+
+Revover the secret
+
+```
+vault kv get kv/agent/static
+```
+
+**STEP04**: Enable AppRole and create a role
+
+```
+vault auth enable approle
+```
+
+**STEP05**: create a role called agent attached to agent policy previous created
+
+```
+vault write auth/approle/role/agent policies="agent"
+```
+
+
+**STEP06**: Write out a Role ID and Secret ID
+
+```
+vault read -format=json auth/approle/role/agent/role-id \
+  | jq -r '.data.role_id' > vault-agent/agent-role_id
+
+vault write -format=json -f auth/approle/role/agent/secret-id \
+  | jq -r '.data.secret_id' > vault-agent/agent-secret_id
+```
+
+**STEP07**: Start vault agent
+
+```
+vault agent -log-level debug -config=./vault-agent/agent-vault-agent.hcl
+```
 
 ## Some links
 
 [Vault Docker Reference](https://hub.docker.com/_/vault)
+
+[Vault Agant Sample](https://sleeplessbeastie.eu/2022/10/17/how-to-install-vault-agent)
