@@ -1,5 +1,5 @@
 # Description
-PoC with Vault Agent Service
+PoC with Vault, Vault Agent and key/value secrets management.
 
 ## Start Vault as Docker service in development mode
 
