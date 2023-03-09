@@ -133,7 +133,7 @@ vault login -method=userpass username=masalinas password=password
 
 ## Manage vault agant
 
-**STEP01**: Write a Agant Policy
+**STEP01 Write a Agant Policy**:
 vault policy write agant agent.hcl
 
 where agent.hcl define the policied to have toal access to any path inside kv agant path
@@ -145,13 +145,13 @@ path "kv/data/agent/*"
 }
 ```
 
-**STEP02**: Enable the kv Secrets engine and store a secret
+**STEP02 Enable the kv Secrets engine and store a secret**:
 
 ```
 vault secrets enable -version=2 kv
 ```
 
-**STEP03**: store a sample secret
+**STEP03 store a sample secret**:
 
 ```
 vault kv put kv/agent/static app=agent username=agent password=sup4s3cr3t
@@ -163,20 +163,20 @@ Revover the secret
 vault kv get kv/agent/static
 ```
 
-**STEP04**: Enable AppRole and create a role
+**STEP04 Enable AppRole and create a role**:
 
 ```
 vault auth enable approle
 ```
 
-**STEP05**: create a role called agent attached to agent policy previous created
+**STEP05 create a role called agent attached to agent policy previous created**:
 
 ```
 vault write auth/approle/role/agent policies="agent"
 ```
 
 
-**STEP06**: Write out a Role ID and Secret ID
+**STEP06 Write out a Role ID and Secret ID**:
 
 ```
 vault read -format=json auth/approle/role/agent/role-id \
@@ -186,19 +186,19 @@ vault write -format=json -f auth/approle/role/agent/secret-id \
   | jq -r '.data.secret_id' > vault-agent/agent-secret_id
 ```
 
-**STEP07**: Start vault agent
+**STEP07 Start vault agent**:
 
 ```
 vault agent -log-level debug -config=./vault-agent/agent-vault-agent.hcl
 ```
 
-**STEP08**: Watch results
+**STEP08 Watch results**:
 
 After Vault Agent starts, this service got the secrets configured in the template and create a simple htlm showing these secrets recovered:
 
 ![agent_results](captures/agent_result.png)
 
-**STEP09**: Rotate some secrets and show the results
+**STEP09: Rotate some secrets and show the results**
 
 Now we are going to change (rotate) from secret and the agent will get it again and refresh our html. To rotate a secret we will create a new version of ours secrets and change some one for example the username
 
