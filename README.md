@@ -131,7 +131,7 @@ Login with the new accound
 vault login -method=userpass username=masalinas password=password
 ```
 
-## Manage vault agant
+## Manage vault agent
 
 **STEP01 Write a Agant Policy**:
 vault policy write agant agent.hcl
