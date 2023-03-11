@@ -80,9 +80,6 @@ Now configure vault ui production mode the first time in 4 steps
 
 **STEP02: The system create for us two keys. This keys will be used to login in UI later. We can download**
 
-- intial root token: hvs.7oo9iGaYJyjBk7EADaBE0Xha
-- Key 1: 58f289a6fef1d68db93fd143d082f1f9f821b8ff0c2d2752325c55ac538f3b44
-
 ![vault-production-config_02](captures/vault_production_config_ste02.png)
 
 **STEP03: Now continue with the Unseal configuration**
