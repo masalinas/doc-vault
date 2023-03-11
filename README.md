@@ -94,7 +94,7 @@ We must introduce the Key 1 created previously to finish the configuration
 
 ![vault-production-config_05](captures/vault_production_config_ste05.png)
 
-The next times we can access using root toke to autenticate as root. Is the system is stopped we must unselad agaun using the other token
+The next times we can access using the root toke to authenticate as root. Is the system is stopped we must unseal again using the other token
 
 ![vault-ui](captures/vault_ui.png)
 
