@@ -6,8 +6,8 @@ auto_auth {
     type = "approle"
 
     config = {
-      role_id_file_path = "/Users/miguel/git/vault-agent-docker/vault-agent/agent-role_id"
-      secret_id_file_path = "/Users/miguel/git/vault-agent-docker/vault-agent/agent-secret_id"
+      role_id_file_path = "./vault-agent/agent-role_id"
+      secret_id_file_path = "./vault-agent/agent-secret_id"
       remove_secret_id_file_after_reading = false
     }
   }
@@ -15,14 +15,14 @@ auto_auth {
   sink {
     type = "file"
     config = {
-      path = "/Users/miguel/git/vault-agent-docker/vault-agent/token"
+      path = "./vault-agent/token"
     }
   }
 }
 
 template {
-  source = "/Users/miguel/git/vault-agent-docker/vault-agent/agent-kv.tpl"
-  destination = "/Users/miguel/git/vault-agent-docker/vault-agent/agent-kv.html"
+  source = "./vault-agent/agent-kv.tpl"
+  destination = "./vault-agent/agent-kv.html"
 }
 
 cache {

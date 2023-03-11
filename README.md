@@ -143,6 +143,8 @@ path "kv/data/agent/*"
 {
   capabilities = ["create", "read", "update", "delete", "list"]
 }
+
+vault policy write agent agent.hcl
 ```
 
 **STEP02 Enable the kv Secrets engine and store a secret**:

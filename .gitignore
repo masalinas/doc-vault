@@ -1,0 +1,8 @@
+# See http://help.github.com/ignore-files/ for more about ignoring files.
+
+# compiled output
+/vault-agent/agent-role_id
+/vault-agent/agent-secret_id
+/vault-agent/token
+/vault-agent/*.html
+
