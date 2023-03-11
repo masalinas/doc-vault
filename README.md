@@ -94,7 +94,7 @@ We must introduce the Key 1 created previously to finish the configuration
 
 ![vault-production-config_05](captures/vault_production_config_ste05.png)
 
-The next times we can access using toke authentication method and the token VAULT_TOKEN or VAULT_DEV_ROOT_TOKEN_ID defined:
+The next times we can access using root toke to autenticate as root. Is the system is stopped we must unselad agaun using the other token
 
 ![vault-ui](captures/vault_ui.png)
 
