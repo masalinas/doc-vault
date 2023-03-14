@@ -21,8 +21,9 @@ auto_auth {
 }
 
 template {
-  source = "./vault-agent/agent-kv.tpl"
-  destination = "./vault-agent/agent-kv.html"
+  source = "./vault-agent/agent-db-kv.tpl"
+  destination = "./database/.env"
+  command = "./database/command.sh"
 }
 
 cache {
